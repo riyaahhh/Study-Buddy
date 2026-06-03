@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -30,4 +31,13 @@ public class UserController {
         UUID userId = (UUID) authentication.getPrincipal();
         return ResponseEntity.ok(userService.updateMyProfile(userId, request));
     }
+    @GetMapping("/nearby")
+public ResponseEntity<List<UserResponse>> getNearbyUsers(
+        Authentication authentication,
+        @RequestParam double lat,
+        @RequestParam double lng,
+        @RequestParam(defaultValue = "5") double radius) {
+    UUID userId = (UUID) authentication.getPrincipal();
+    return ResponseEntity.ok(userService.getNearbyUsers(userId, lat, lng, radius));
+}
 }

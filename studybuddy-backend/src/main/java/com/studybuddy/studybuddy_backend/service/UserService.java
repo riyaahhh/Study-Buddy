@@ -2,12 +2,16 @@ package com.studybuddy.studybuddy_backend.service;
 
 import com.studybuddy.studybuddy_backend.dto.UpdateProfileRequest;
 import com.studybuddy.studybuddy_backend.dto.UserResponse;
+import com.studybuddy.studybuddy_backend.exception.AppException;
 import com.studybuddy.studybuddy_backend.model.User;
 import com.studybuddy.studybuddy_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,13 +21,13 @@ public class UserService {
 
     public UserResponse getMyProfile(UUID userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new AppException("User not found", HttpStatus.NOT_FOUND));
         return mapToResponse(user);
     }
 
     public UserResponse updateMyProfile(UUID userId, UpdateProfileRequest request) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new AppException("User not found", HttpStatus.NOT_FOUND));
 
         if (request.getName() != null) user.setName(request.getName());
         if (request.getBio() != null) user.setBio(request.getBio());
@@ -34,6 +38,13 @@ public class UserService {
 
         User saved = userRepository.save(user);
         return mapToResponse(saved);
+    }
+
+    public List<UserResponse> getNearbyUsers(UUID userId, double lat, double lng, double radius) {
+        return userRepository.findNearbyUsers(lat, lng, radius, userId)
+                .stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
 
     private UserResponse mapToResponse(User user) {
