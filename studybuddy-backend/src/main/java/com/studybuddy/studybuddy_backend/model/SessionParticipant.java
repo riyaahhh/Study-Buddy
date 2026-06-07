@@ -34,4 +34,9 @@ public class SessionParticipant {
     @CreationTimestamp
     @Column(name = "joined_at", updatable = false)
     private LocalDateTime joinedAt;
+    @Column(name = "completed")
+    private Boolean completed = false;
+
+    @Column(name = "checked_in_at")
+    private LocalDateTime checkedInAt;
 }

@@ -19,4 +19,7 @@ public class UserResponse {
     private BigDecimal latitude;
     private BigDecimal longitude;
     private String avatarUrl;
+    private BigDecimal reliabilityScore;
+    private Integer totalJoined;
+    private Integer totalCompleted;
 }

@@ -23,4 +23,9 @@ public interface ParticipantRepository extends JpaRepository<SessionParticipant,
     // count participants in a session
     int countBySessionId(UUID sessionId);
     List<SessionParticipant> findByUserId(UUID userId);
+    // count sessions user has completed
+int countByUserIdAndCompleted(UUID userId, Boolean completed);
+
+// count all sessions user has joined
+int countByUserId(UUID userId);
 }

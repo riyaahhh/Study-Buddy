@@ -48,15 +48,18 @@ public class UserService {
     }
 
     private UserResponse mapToResponse(User user) {
-        return UserResponse.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .email(user.getEmail())
-                .bio(user.getBio())
-                .subjects(user.getSubjects())
-                .latitude(user.getLatitude())
-                .longitude(user.getLongitude())
-                .avatarUrl(user.getAvatarUrl())
-                .build();
-    }
+    return UserResponse.builder()
+            .id(user.getId())
+            .name(user.getName())
+            .email(user.getEmail())
+            .bio(user.getBio())
+            .subjects(user.getSubjects())
+            .latitude(user.getLatitude())
+            .longitude(user.getLongitude())
+            .avatarUrl(user.getAvatarUrl())
+            .reliabilityScore(user.getReliabilityScore())
+            .totalJoined(user.getTotalJoined())
+            .totalCompleted(user.getTotalCompleted())
+            .build();
+}
 }

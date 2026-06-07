@@ -55,4 +55,12 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    @Column(name = "reliability_score", precision = 5, scale = 2)
+private BigDecimal reliabilityScore = BigDecimal.ZERO;
+
+@Column(name = "total_joined")
+private Integer totalJoined = 0;
+
+@Column(name = "total_completed")
+private Integer totalCompleted = 0;
 }
