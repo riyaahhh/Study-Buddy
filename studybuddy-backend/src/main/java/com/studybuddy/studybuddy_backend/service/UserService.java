@@ -35,6 +35,9 @@ public class UserService {
         if (request.getLatitude() != null) user.setLatitude(request.getLatitude());
         if (request.getLongitude() != null) user.setLongitude(request.getLongitude());
         if (request.getAvatarUrl() != null) user.setAvatarUrl(request.getAvatarUrl());
+        if (request.getCollege() != null) {
+            user.setCollege(request.getCollege().trim());
+        }
 
         User saved = userRepository.save(user);
         return mapToResponse(saved);
@@ -60,6 +63,11 @@ public class UserService {
             .reliabilityScore(user.getReliabilityScore())
             .totalJoined(user.getTotalJoined())
             .totalCompleted(user.getTotalCompleted())
+            .college(user.getCollege())
+            .xp(user.getXp())
+            .currentStreak(user.getCurrentStreak())
+            .longestStreak(user.getLongestStreak())
+            .lastStudyDate(user.getLastStudyDate())
             .build();
 }
 }

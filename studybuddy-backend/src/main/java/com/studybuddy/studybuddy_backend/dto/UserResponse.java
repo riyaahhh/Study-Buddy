@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
@@ -22,4 +23,9 @@ public class UserResponse {
     private BigDecimal reliabilityScore;
     private Integer totalJoined;
     private Integer totalCompleted;
+    private String college;
+    private Integer xp;
+    private Integer currentStreak;
+    private Integer longestStreak;
+    private LocalDate lastStudyDate;
 }

@@ -22,6 +22,7 @@ public class ReliabilityService {
     private final ParticipantRepository participantRepository;
     private final UserRepository userRepository;
     private final SessionRepository sessionRepository;
+    private final GamificationService gamificationService;
 
     // called when user checks into a session
     public String checkIn(UUID sessionId, UUID userId) {
@@ -37,6 +38,7 @@ public class ReliabilityService {
 
         participant.setCheckedInAt(LocalDateTime.now());
         participantRepository.save(participant);
+        gamificationService.awardCheckInXp(participant.getUser(), participant.getSession());
 
         return "Checked in successfully!";
     }
@@ -59,6 +61,10 @@ public class ReliabilityService {
 
         // recalculate reliability score
         recalculateReliability(userId);
+        gamificationService.awardCompletionXp(
+                participant.getUser(),
+                participant.getSession()
+        );
 
         return "Session marked as completed!";
     }

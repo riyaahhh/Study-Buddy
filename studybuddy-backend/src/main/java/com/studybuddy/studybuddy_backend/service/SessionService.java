@@ -26,6 +26,7 @@ public class SessionService {
     private final SessionRepository sessionRepository;
     private final UserRepository userRepository;
     private final ParticipantRepository participantRepository;
+    private final GamificationService gamificationService;
 
     public SessionResponse createSession(UUID hostId, CreateSessionRequest request) {
         User host = userRepository.findById(hostId)
@@ -84,6 +85,7 @@ public class SessionService {
                 .build();
 
         participantRepository.save(participant);
+        gamificationService.awardJoinXp(user, session);
         return "Successfully joined the session";
     }
 

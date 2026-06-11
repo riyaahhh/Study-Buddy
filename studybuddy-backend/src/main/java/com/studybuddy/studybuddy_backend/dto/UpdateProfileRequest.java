@@ -12,4 +12,5 @@ public class UpdateProfileRequest {
     private BigDecimal latitude;
     private BigDecimal longitude;
     private String avatarUrl;
+    private String college;
 }

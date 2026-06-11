@@ -15,6 +15,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     Optional<User> findByEmail(String email);
     boolean existsByEmail(String email);
+    List<User> findByCollegeIgnoreCaseOrderByXpDesc(String college);
 
     // Haversine formula — finds users within radius km
 @Query(value = """
